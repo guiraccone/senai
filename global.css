@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, input, button, tr, th {
+    font-family: Roboto, sans-serif;
+}
+
+
+nav {
+    background: black;
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+nav ul a {
+    text-decoration: none;
+    color: white;
+    transition: 0.4s;
+}
+
+nav ul a:hover {
+    color: rgb(163, 163, 163);
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 2rem 0 2rem 0;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #307432;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    color: white;
+    background-color: #2623cccb;
+}
+
+table td {
+    border: black solid 1px;
+    text-align: center;
+
+}
+
+table tr {
+    background-color: rgb(223, 223, 223);
+    border: 1px solid gray;
+}
+
+table td:hover {
+    background-color: rgb(194, 194, 194);
+}
