@@ -24,11 +24,11 @@ app.get('/api/service-type', async (request, response) => {
     const serviceTypes = await ServiceType.findAll()
     response.json(serviceTypes)
 })
-app.get('/api/animals', async (request, response) => {
+app.get('/api/animal', async (request, response) => {
     const animals = await Animal.findAll()
     response.json(animals)
 })
-app.get('/api/services', async (request, response) => {
+app.get('/api/service', async (request, response) => {
     const services = await Service.findAll()
     response.json(services)
 })
@@ -73,7 +73,7 @@ app.post('/api/animal', async (request, response) => {
     response.json(animal)
 })
 
-app.post('/api/services', async (request, response) => {
+app.post('/api/service', async (request, response) => {
     const newService = {
         serviceType: request.body.serviceType,
         animal: request.body.animal,
@@ -85,6 +85,84 @@ app.post('/api/services', async (request, response) => {
     response.json(service)
 })
 
+app.delete("/api/user/:id", function (request, response) {
+    if (!request.params.id) {
+        request
+            .status(400)
+            .send({ message: "É necessário informar um id de para deletar um usuário." })
+        return
+    }
+
+    User.destroy({ where: { id: request.params.id } })
+        .then((data) => {
+            response.send({ deleteUsersCount: data })
+        })
+        .catch((err) => {
+            response.status(500).send({
+                message: err.message || "Ocorreu um erro ao tentar deletar um usuário."
+            })
+        })
+})
+
+app.delete("/api/animal/:id", function (request, response) {
+    if (!request.params.id) {
+        request
+            .status(400)
+            .send({ message: "É necessário informar um id de para deletar um animal." })
+        return
+    }
+
+    Animal.destroy({ where: { id: request.params.id } })
+        .then((data) => {
+            response.send({ deleteAnimalsCount: data })
+        })
+        .catch((err) => {
+            response.status(500).send({
+                message: err.message || "Ocorreu um erro ao tentar deletar um animal."
+            })
+        })
+})
+
+
+app.delete("/api/service/:id", function (request, response) {
+    if (!request.params.id) {
+        request
+            .status(400)
+            .send({ message: "É necessário informar um id de para deletar um serviço." })
+        return
+    }
+
+    Service.destroy({ where: { id: request.params.id } })
+        .then((data) => {
+            response.send({ deleteServicesCount: data })
+        })
+        .catch((err) => {
+            response.status(500).send({
+                message: err.message || "Ocorreu um erro ao tentar deletar um serviço."
+            })
+        })
+})
+
+app.delete("/api/service-type/:id", function (request, response) {
+    if (!request.params.id) {
+        request
+            .status(400)
+            .send({ message: "É necessário informar um id de para deletar um tipo serviço." })
+        return
+    }
+
+    ServiceType.destroy({ where: { id: request.params.id } })
+        .then((data) => {
+            response.send({ deleteServiceTypesCount: data })
+        })
+        .catch((err) => {
+            response.status(500).send({
+                message: err.message || "Ocorreu um erro ao tentar deletar um tipo de serviço."
+            })
+        })
+})
+
+app.update("/api/service-type/")
 app.listen(3000, () => {
     console.log(`Servidor está rodando em http://localhost:3000`)
 })

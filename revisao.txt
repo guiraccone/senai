@@ -1,0 +1,88 @@
+métodos http:
+
+  get - Busca e listagem de dados
+  post - Envio/persistência de dados
+  patch - Atualizar informações específicas de um dado, mantendo as informações que nao forem enviadas
+  put - Substituição de dado, colocando os novos dados no lugar da informação anterior
+  delete - Deletar dados
+
+Padrão REST
+  seguir todos o métodos http semanticamente e implementar o HATEOAS
+
+  API que segue os padrões REST é chamada de API RESTFUL
+
+REST => Características
+
+  Interface uniforme => Recursos => cada recurso é disponibilizado de maneira uniforme
+  Não pode depender de estado => stateless => resultados não dependem de estados do servidor
+  Cacheável => possuir headers do cache
+  Diferenciavel cliente/servidor => cliente e servidor são independentes um do outro
+  Sistema em camadas => diversas camadas de API por trás do sistema
+
+Recurso => user => GET => /user
+                   POST => /user
+                   GET => /product
+
+STATUS DE RESPOSTA
+  200 => SUCESSO -> 200 OK => requisição deu tudo certo
+                    201 created => criado um registro com sucesso
+                    204 no content => deu tudo certo, mas não foi retornado nada
+  400 => 
+        PROBLEMAS COM A requisição -> 400 bad request 
+                                      => algum problema na requisição
+
+                                       401 unauthorized 
+                                          =>  cliente não possui autorização para este endpoint
+                                       404 not found 
+                                          => pagina/recurso/registro não encontrado
+
+                                       413 request entity too large 
+                                          => informações passadas muito grandes 
+                                          => servidor se recusa a
+                                                                                                                processar tudo isso
+                                       429 too many requests 
+                                          => requisição demais no servidor para processar, 
+                                             ignorará os excedentes
+  500  => Erro interno do servidor (NUNCA RETORNAR)
+       => 504 GATEWAY TIMEOUT => algo no servidor demorando demais
+  300 = redirecionamentos
+
+Padrão MVC
+        Model View Controller
+              Model 
+                    => representação do recurso e seus atributos no código do servidor
+                    => define as interações com banco de dados
+              View
+                    => visualização do recurso
+                    => front end criado com os dados do recurso
+              Controller
+                    => agrupador das ações possíveis para o recurso
+                    => cada ação é um endpoint disponível em uma rota
+
+Auditoria
+    => Para ser possível visualizar o histórico de modificações no sistema,
+       conseguir responsabilizar os usuários de suas alterações
+
+    => Sempre que criado/alterado/excluído em registro são registrados a ação feita, os dados envolvidos
+       o usuário e quando foi feito (data/hora)
+
+Criptografia
+   => Esconder dados sensíveis
+       - Criptografia de senhas de usário no JS = bcrypt => Criptografia de via única, <= uso de chave secreta 
+                                                            não há como decriptografar    para criptografar
+                                                                     senha + chave secreta = hash
+
+Protocólos de comunicação
+   HTTP 
+      => mais comum
+      => APIs REST utilizam com o método HTTP adequados.
+      => Casos de uso comum: qualquer coisa
+   Graph QL
+      => Protocolo de consulta aberta (criado pelo Facebook)
+      => Permite ao cliente definir a estrutura de dados de retorno
+      => Casos de uso comuns: mais que uns front end consumindo a mesma api
+   gRPC
+      => Protocolo de comunicação de alto desempenho
+      => Oferece recursos como balanceamento de carga e cancelamento de requisição
+      => Casos de uso comuns: => comunicação interna entre APIs internas
+                              => microsserviços

@@ -1,5 +1,5 @@
 async function getServiceList() {
-    const response = await fetch('http://localhost:3000/api/services')
+    const response = await fetch('http://localhost:3000/api/service')
     const data = await response.json()
 
     const services = document.querySelectorAll('tr > td')
@@ -16,10 +16,14 @@ async function getServiceList() {
 
         newServiceTr.id = service.id
         newServiceTr.innerHTML = `
-    <td>${service.serviceType}</td>
-    <td>${service.animal}</td>
-    <td>${service.scheduledDate}</td>
-    `
+        <td>${service.serviceType}</td>
+        <td>${service.animal}</td>
+        <td>${service.scheduledDate}</td>
+        <td>
+        <button class="delete-button" type="button" onclick=deleteService(${service.id})>Deletar</button>
+        <button class="update-button" type="button" onclick=updateService(${service.id})>Atualizar</button>
+        </td>
+        `
         serviceListContainer.appendChild(newServiceTr)
     })
 }
@@ -47,3 +51,17 @@ createServiceButton.addEventListener('click', async (event) => {
     })
     await getServiceList()
 })
+
+
+async function deleteService(id) {
+    const apiURL = 'http://localhost:3000'
+    const deleteResult = await fetch(`${apiURL}/api/service/${id}`, {
+        method: 'DELETE'
+    })
+
+    await deleteResult.json()
+
+    await getServiceList()
+
+    location.reload()
+}

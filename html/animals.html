@@ -21,12 +21,22 @@
     <div class="wrapper">
         <h1>Meu Pet Shops ERP</h1>
         <form id="create-animal-form">
-            <input class="create-animal-input" type="text" name="name" placeholder="Nome do Animal">
-            <input class="create-animal-input" type="text" name="breed" placeholder="Raça">
-            <input class="create-animal-input" type="number" name="age" placeholder="Idade">
-            <input class="create-animal-input" type="number" name="weight" placeholder="Peso">
-            <input class="create-animal-input" type="text" name="ownerName" placeholder="Nome do Dono">
-            <input class="create-animal-input" type="text" name="isVacinated" placeholder="É vacinado">
+            <label for="name">Nome</label>
+            <input class="create-animal-input" id="name" type="text" name="name" required>
+            <label for="breed">Raça</label>
+            <input class="create-animal-input" id="breed" type="text" name="breed" required>
+            <label for="age">Idade</label>
+            <input class="create-animal-input" id="age" type="number" name="age" required>
+            <label for="weight">Peso</label>
+            <input class="create-animal-input" id="weight" type="number" name="weight" required>
+            <label for="owner">Nome do Dono</label>
+            <input class="create-animal-input" type="text" name="ownerName" required>
+            <label for="vacinated">É vacinado</label>
+            <select class="create-animal-input" id="vacinated" name="isVacinated">
+                <option value="">Selecione</option>
+                <option value="Não">Não</option>
+                <option value="Sim">Sim</option>
+            </select>
             <button id="create-animal-button" type="submit">Criar Animal</button>
         </form>
         <table id="animal-list-container">
@@ -37,6 +47,7 @@
                 <th>Peso</th>
                 <th>Nome do Dono</th>
                 <th>É vacinado?</th>
+                <th>Ação</th>
             </tr>
         </table>
     </div>

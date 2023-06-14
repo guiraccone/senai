@@ -1,5 +1,5 @@
 async function getAnimalList() {
-    const response = await fetch('http://localhost:3000/api/animals')
+    const response = await fetch('http://localhost:3000/api/animal')
     const data = await response.json()
 
     const animals = document.querySelectorAll('tr > td')
@@ -13,15 +13,18 @@ async function getAnimalList() {
 
     data.forEach(animal => {
         const newAnimalTr = document.createElement('tr')
-
         newAnimalTr.id = animal.id
         newAnimalTr.innerHTML = `
-    <td>${animal.name}</td>
-    <td>${animal.breed}</td>
-    <td>${animal.age}</td>
-    <td>${animal.weight}</td>
-    <td>${animal.ownerName}</td>
-    <td>${animal.isVacinated}</td>
+        <td>${animal.name}</td>
+        <td>${animal.breed}</td>
+        <td>${animal.age}</td>
+        <td>${animal.weight}</td>
+        <td>${animal.ownerName}</td>
+        <td>${animal.isVacinated}</td>
+        <td>
+        <button class="delete-button" type="button" onclick=deleteAnimal(${animal.id})>Deletar</button>
+        <button class="update-button" type="button" onclick=updateAnimal(${animal.id})>Atualizar</button>
+        </td>
     `
         animalListContainer.appendChild(newAnimalTr)
     })
@@ -38,7 +41,8 @@ createAnimalButton.addEventListener('click', async (event) => {
     const age = document.querySelector('input[name="age"]').value
     const weight = document.querySelector('input[name="weight"]').value
     const ownerName = document.querySelector('input[name="ownerName"]').value
-    const isVacinated = document.querySelector('input[name="isVacinated"]').value
+    const isVacinatedSelect = document.querySelector('select[name="isVacinated"]')
+    const isVacinated = isVacinatedSelect.options[isVacinatedSelect.selectedIndex].value
 
     await fetch('http://localhost:3000/api/animal', {
         method: 'POST',
@@ -56,3 +60,15 @@ createAnimalButton.addEventListener('click', async (event) => {
     })
     await getAnimalList()
 })
+
+
+async function deleteAnimal(id) {
+    const apiURL = 'http://localhost:3000'
+    const deleteResult = await fetch(`${apiURL}/api/animal/${id}`, {
+        method: 'DELETE'
+    })
+
+    await deleteResult.json()
+
+    await getAnimalList()
+}

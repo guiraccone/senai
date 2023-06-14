@@ -12,16 +12,20 @@ async function getUserList() {
     const userListContainer = document.getElementById('user-list-container')
 
     data.forEach(user => {
-    const newUserTr = document.createElement('tr')
+        const newUserTr = document.createElement('tr')
 
-    newUserTr.id = user.id
-    newUserTr.innerHTML = `
-    <td>${user.name}</td>
-    <td>${user.birthDate}</td>
-    <td>${user.email}</td>
-    <td>${user.cpf}</td>
+        newUserTr.id = user.id
+        newUserTr.innerHTML = `
+        <td>${user.name}</td>
+        <td>${user.birthDate}</td>
+        <td>${user.email}</td>
+        <td>${user.cpf}</td>
+        <td>
+        <button class="delete-button" type="button" onclick="deleteUser(${user.id})">Deletar</button>
+        <button class="update-button" type="button" onclick=updateUser(${user.id})>Atualizar</button>
+        </td>
     `
-    userListContainer.appendChild(newUserTr)
+        userListContainer.appendChild(newUserTr)
     })
 }
 
@@ -50,3 +54,16 @@ createUserButton.addEventListener('click', async (event) => {
     })
     await getUserList()
 })
+
+async function deleteUser(id) {
+    const apiURL = 'http://localhost:3000'
+    const deleteResult = await fetch(`${apiURL}/api/user/${id}`, {
+        method: 'DELETE'
+    })
+
+    await deleteResult.json()
+
+    await getUserList()
+
+    location.reload()
+}

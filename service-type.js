@@ -19,7 +19,9 @@ async function getServiceTypeList() {
         <td>${serviceType.name}</td>
         <td>${serviceType.price}</td>
         <td>${serviceType.duration}</td>
-    `
+        <td><button class="delete-button" type="button" onclick=deleteServiceType(${serviceType.id})>Deletar</button></td>
+        <td><button class="update-button" type="button" onclick=updateServiceType(${serviceType.id})>Atualizar</button></td>
+        `
         serviceTypeListContainer.appendChild(newServiceTypeTr)
     })
 }
@@ -47,3 +49,17 @@ createServiceTypeButton.addEventListener('click', async (event) => {
     })
     await getServiceTypeList()
 })
+
+
+async function deleteServiceType(id) {
+    const apiURL = 'http://localhost:3000'
+    const deleteResult = await fetch(`${apiURL}/api/service-type/${id}`, {
+        method: 'DELETE'
+    })
+
+    await deleteResult.json()
+
+    await getServiceTypeList()
+
+    location.reload()
+}

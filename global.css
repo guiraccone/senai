@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-body, input, button, tr, th {
+body, input, button, tr, th, select {
     font-family: Roboto, sans-serif;
 }
 
@@ -54,6 +54,14 @@ input {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 input:focus {
     outline: none;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -73,6 +81,31 @@ button {
 
 button:hover {
     background: #307432;
+}
+
+.delete-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #f07066;
+}
+.update-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f4d136;
+    color: white;
+}
+
+.update-button:hover {
+    background-color: #e0de45;
 }
 
 table {
